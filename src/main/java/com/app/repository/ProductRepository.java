@@ -15,10 +15,13 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
 	ProductEntity findByProductNameContainingIgnoreCase(String productName);
 
-	Page<IListProductDto> findByOrderByIdAsc(Pageable paging, Class<IListProductDto> class1);
+	Page<IListProductDto> findByOrderByIdDesc(Pageable paging, Class<IListProductDto> class1);
 
 	Page<IListProductDto> findByProductName(String search, Pageable paging, Class<IListProductDto> class1);
 
 	List<IListProductDto> findById(Long id, Class<IListProductDto> class1);
 
+//	@Query(value = "SELECT * FROM category c WHERE c.category_id=:categoryId", nativeQuery = true)
+//	CategoryEntity findByCategoryId(@Param("categoryId") Long id);
+//
 }

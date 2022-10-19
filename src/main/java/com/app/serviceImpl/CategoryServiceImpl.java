@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryInterface {
 
 		if ((search == "") || (search == null) || (search.length() == 0)) {
 
-			iListCategoryDto = categoryRepository.findByOrderByIdAsc(paging, IListCategoryDto.class);
+			iListCategoryDto = categoryRepository.findByOrderByIdDesc(paging, IListCategoryDto.class);
 
 		} else {
 

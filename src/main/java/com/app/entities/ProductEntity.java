@@ -4,9 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -41,8 +43,12 @@ public class ProductEntity {
 	@UpdateTimestamp
 	private Date updatedAt;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	private CategoryEntity category;
+
 	public Long getId() {
 		return id;
+
 	}
 
 	public void setId(Long id) {
@@ -87,10 +93,23 @@ public class ProductEntity {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+
+	}
+
+	public ProductEntity() {
+		super();
+	}
+
+	public CategoryEntity getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
 	}
 
 	public ProductEntity(Long id, String productName, double productPrice, boolean isActive, Date createdAt,
-			Date updatedAt) {
+			Date updatedAt, CategoryEntity category) {
 		super();
 		this.id = id;
 		this.productName = productName;
@@ -98,10 +117,7 @@ public class ProductEntity {
 		this.isActive = isActive;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-	}
-
-	public ProductEntity() {
-		super();
+		this.category = category;
 	}
 
 }

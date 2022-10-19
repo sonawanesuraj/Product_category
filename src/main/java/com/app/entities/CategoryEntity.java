@@ -1,12 +1,14 @@
 package com.app.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +22,7 @@ import org.hibernate.annotations.Where;
 @SQLDelete(sql = "UPDATE category SET is_active=false WHERE id=?")
 public class CategoryEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 
@@ -37,6 +39,9 @@ public class CategoryEntity {
 	@Column(name = "updated_at")
 	@UpdateTimestamp
 	private Date updatedAt;
+
+	@OneToMany(mappedBy = "category")
+	private List<ProductEntity> product;
 
 	public Long getId() {
 		return id;
@@ -78,18 +83,28 @@ public class CategoryEntity {
 		this.updatedAt = updatedAt;
 	}
 
-	public CategoryEntity(Long id, String categoryName, boolean isActive, Date createdAt, Date updatedAt) {
+	public List<ProductEntity> getProduct() {
+
+		return product;
+	}
+
+	public void setProduct(List<ProductEntity> product) {
+		this.product = product;
+	}
+
+	public CategoryEntity(Long id, String categoryName, boolean isActive, Date createdAt, Date updatedAt,
+			List<ProductEntity> product) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
 		this.isActive = isActive;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.product = product;
 	}
 
 	public CategoryEntity() {
 		super();
-
 	}
 
 }

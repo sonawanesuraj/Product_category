@@ -36,7 +36,7 @@ public class ProductController {
 	private ProductRepository productRepository;
 
 	@PostMapping()
-	public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto) {
+	public ResponseEntity<?> addProduct(Long categoryId, @RequestBody ProductDto productDto) {
 		try {
 			ProductEntity productEntity = productRepository
 					.findByProductNameContainingIgnoreCase(productDto.getProductName().trim());
@@ -107,4 +107,5 @@ public class ProductController {
 
 		}
 	}
+
 }
